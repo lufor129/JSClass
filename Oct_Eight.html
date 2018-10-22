@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <select class="list">
+
+  </select>
+  <ul class='ul'>
+    
+  </ul>
+</body>
+</html>
+<script>
+  let data =  [
+{
+married: 6251,
+lostCompanion: 1489,
+yReport: 95,
+notMarried: 6516,
+total: 15386,
+divorsed: 1130,
+districtName: "前金區",
+type: 0
+},
+{
+married: 6731,
+lostCompanion: 342,
+yReport: 95,
+notMarried: 6800,
+total: 14939,
+divorsed: 1066,
+districtName: "前金區",
+type: 1
+},
+{
+married: 12982,
+lostCompanion: 1831,
+yReport: 95,
+notMarried: 13316,
+total: 30325,
+divorsed: 2196,
+districtName: "前金區",
+type: 2
+},
+{
+married: 6190,
+lostCompanion: 1490,
+yReport: 96,
+notMarried: 6371,
+total: 15220,
+divorsed: 1169,
+districtName: "前金區",
+type: 0
+},
+{
+married: 6641,
+lostCompanion: 343,
+yReport: 96,
+notMarried: 6672,
+total: 14745,
+divorsed: 1089,
+districtName: "前金區",
+type: 1
+},
+{
+married: 12831,
+lostCompanion: 1833,
+yReport: 96,
+notMarried: 13043,
+total: 29965,
+divorsed: 2258,
+districtName: "前金區",
+type: 2
+},
+{
+married: 6145,
+lostCompanion: 1507,
+yReport: 97,
+notMarried: 6291,
+total: 15165,
+divorsed: 1222,
+districtName: "前金區",
+type: 0
+},
+{
+married: 6619,
+lostCompanion: 333,
+yReport: 97,
+notMarried: 6550,
+total: 14609,
+divorsed: 1107,
+districtName: "前金區",
+type: 1
+},
+{
+married: 12764,
+lostCompanion: 1840,
+yReport: 97,
+notMarried: 12841,
+total: 29774,
+divorsed: 2329,
+districtName: "前金區",
+type: 2
+},
+{
+married: 5995,
+lostCompanion: 1480,
+yReport: 98,
+notMarried: 6194,
+total: 14909,
+divorsed: 1240,
+districtName: "前金區",
+type: 0
+},
+{
+married: 6452,
+lostCompanion: 339,
+yReport: 98,
+notMarried: 6407,
+total: 14299,
+divorsed: 1101,
+districtName: "前金區",
+type: 1
+},
+{
+married: 12447,
+lostCompanion: 1819,
+yReport: 98,
+notMarried: 12601,
+total: 29208,
+divorsed: 2341,
+districtName: "前金區",
+type: 2
+},
+{
+married: 5930,
+lostCompanion: 1504,
+yReport: 99,
+notMarried: 6076,
+total: 14793,
+divorsed: 1283,
+districtName: "前金區",
+type: 0
+},
+{
+married: 6322,
+lostCompanion: 336,
+yReport: 99,
+notMarried: 6280,
+total: 14066,
+divorsed: 1128,
+districtName: "前金區",
+type: 1
+},
+{
+married: 12252,
+lostCompanion: 1840,
+yReport: 99,
+notMarried: 12356,
+total: 28859,
+divorsed: 2411,
+districtName: "前金區",
+type: 2
+},
+{
+married: 5884,
+lostCompanion: 1490,
+yReport: 100,
+notMarried: 5936,
+total: 14605,
+divorsed: 1295,
+districtName: "前金區",
+type: 0
+},
+{
+married: 6256,
+lostCompanion: 338,
+yReport: 100,
+notMarried: 6105,
+total: 13841,
+divorsed: 1142,
+districtName: "前金區",
+type: 1
+},
+{
+married: 12140,
+lostCompanion: 1828,
+yReport: 100,
+notMarried: 12041,
+total: 28446,
+divorsed: 2437,
+districtName: "前金區",
+type: 2
+},
+{
+married: 5814,
+lostCompanion: 1481,
+yReport: 101,
+notMarried: 5896,
+total: 14534,
+divorsed: 1343,
+districtName: "前金區",
+type: 0
+},
+{
+married: 6170,
+lostCompanion: 355,
+yReport: 101,
+notMarried: 6021,
+total: 13716,
+divorsed: 1170,
+districtName: "前金區",
+type: 1
+},
+{
+married: 11984,
+lostCompanion: 1836,
+yReport: 101,
+notMarried: 11917,
+total: 28250,
+divorsed: 2513,
+districtName: "前金區",
+type: 2
+},
+{
+married: 5780,
+lostCompanion: 1488,
+yReport: 102,
+notMarried: 5861,
+total: 14484,
+divorsed: 1355,
+districtName: "前金區",
+type: 0
+},
+{
+married: 6145,
+lostCompanion: 338,
+yReport: 102,
+notMarried: 5910,
+total: 13554,
+divorsed: 1161,
+districtName: "前金區",
+type: 1
+},
+{
+married: 11925,
+lostCompanion: 1826,
+yReport: 102,
+notMarried: 11771,
+total: 28038,
+divorsed: 2516,
+districtName: "前金區",
+type: 2
+},
+{
+married: 5800,
+lostCompanion: 1492,
+yReport: 103,
+notMarried: 5776,
+total: 14440,
+divorsed: 1372,
+districtName: "前金區",
+type: 0
+},
+{
+married: 6105,
+lostCompanion: 336,
+yReport: 103,
+notMarried: 5787,
+total: 13392,
+divorsed: 1164,
+districtName: "前金區",
+type: 1
+},
+{
+married: 11905,
+lostCompanion: 1828,
+yReport: 103,
+notMarried: 11563,
+total: 27832,
+divorsed: 2536,
+districtName: "前金區",
+type: 2
+},
+{
+married: 5711,
+lostCompanion: 1491,
+yReport: 104,
+notMarried: 5637,
+total: 14196,
+divorsed: 1357,
+districtName: "前金區",
+type: 0
+},
+{
+married: 6039,
+lostCompanion: 344,
+yReport: 104,
+notMarried: 5664,
+total: 13192,
+divorsed: 1145,
+districtName: "前金區",
+type: 1
+},
+{
+married: 11750,
+lostCompanion: 1835,
+yReport: 104,
+notMarried: 11301,
+total: 27388,
+divorsed: 2502,
+districtName: "前金區",
+type: 2
+},
+{
+married: 5695,
+lostCompanion: 1468,
+yReport: 105,
+notMarried: 5608,
+total: 14128,
+divorsed: 1357,
+districtName: "前金區",
+type: 0
+},
+{
+married: 5967,
+lostCompanion: 341,
+yReport: 105,
+notMarried: 5570,
+total: 13023,
+divorsed: 1145,
+districtName: "前金區",
+type: 1
+},
+{
+married: 11662,
+lostCompanion: 1809,
+yReport: 105,
+notMarried: 11178,
+total: 27151,
+divorsed: 2502,
+districtName: "前金區",
+type: 2
+},
+{
+married: 5713,
+lostCompanion: 1473,
+yReport: 106,
+notMarried: 5541,
+total: 14112,
+divorsed: 1385,
+districtName: "前金區",
+type: 0
+},
+{
+married: 5940,
+lostCompanion: 334,
+yReport: 106,
+notMarried: 5453,
+total: 12879,
+divorsed: 1152,
+districtName: "前金區",
+type: 1
+},
+{
+married: 11653,
+lostCompanion: 1807,
+yReport: 106,
+notMarried: 10994,
+total: 26991,
+divorsed: 2537,
+districtName: "前金區",
+type: 2
+},
+{
+married: 12289,
+lostCompanion: 2390,
+yReport: 95,
+notMarried: 12752,
+total: 29532,
+divorsed: 2101,
+districtName: "新興區",
+type: 0
+},
+{
+married: 12625,
+lostCompanion: 593,
+yReport: 95,
+notMarried: 13546,
+total: 28535,
+divorsed: 1771,
+districtName: "新興區",
+type: 1
+},
+{
+married: 24914,
+lostCompanion: 2983,
+yReport: 95,
+notMarried: 26298,
+total: 58067,
+divorsed: 3872,
+districtName: "新興區",
+type: 2
+},
+{
+married: 24914,
+lostCompanion: 2983,
+yReport: 95,
+notMarried: 26298,
+total: 58067,
+divorsed: 3872,
+districtName: "納馬夏區",
+type: 2
+}]
+
+let dom = document.querySelector(".list");
+let list = document.querySelector(".ul");
+
+let dataSet = new Set();
+for(let item in data){
+  dataSet.add(data[item].districtName);
+}
+
+var dict={};
+data.forEach((item,index)=>{
+  if(dict[item.districtName]==undefined){
+    dict[item.districtName]=1
+  }else{
+    dict[item.districtName]++;
+  }
+})
+
+console.log(dataSet);
+console.log(dict);
+
+for(let item of dataSet){
+  dom.innerHTML+=`<option value='${item}'>${item}</option>`;
+}
+
+dom.addEventListener("change",function(){
+  list.innerHTML = '';
+  let temp = dom.value;
+  for(let item in data){
+    if(temp == data[item].districtName)
+    list.innerHTML+=`<li>${data[item].districtName}</li>`
+  }
+  list.innerHTML+=`<li>${temp} 共有 ${dict[temp]}筆 資料</li>`
+})
+</script>

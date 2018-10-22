@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+
+//不用promise
+// function doWork() {
+//   var auntie = "漂亮阿姨";
+//   (function () {
+//     console.log('1. 打給阿姨')   //1
+//     setTimeout(function () {
+//       console.log(auntie + '2. 回電');    //受setTimeOut 0
+//       (function () {
+//         console.log('3. 洗碗');
+//       })();
+//     }, 0)
+//   })();
+//   (function () {
+//     console.log('3. 洗碗');   //2
+//   })();
+// }
+// doWork();   // 執行
+
+var runPromise = function(someone, timer, success){
+  console.log(someone + "開始跑步");
+  //promise 的開始
+  return new Promise((resolve,reject)=>{   //下面寫非同步
+    if(success){
+      setTimeout(function(){   //非同步完成後resolve
+        resolve(someone +" "+(timer/1000)+" 抵達終點");   //resolve 對應 then response
+      },timer)   //timer 秒後調用上面code
+    }else{
+      reject(someone+ "失敗");        //rejetc 對應 catch 的 response
+    }
+  })
+}
+
+// runPromise("小明",2000,true).then((response)=>{
+//   console.log(response);   
+//   // runPromise("胖虎", 3000, true);    //執行完小明後執行胖虎
+//   return runPromise("胖虎",3000, true);
+// }).then(function(response){         //胖虎的then,因為上一個return 的結果會在下一個then做串接
+//   console.log(response);
+// }).catch(function(response){
+//   console.log(response);
+// })
+
+Promise.all([runPromise("小明",2000,true),runPromise("胖虎",3000,true)]).then((response)=>{
+  console.log(response);  //小明&胖虎全部執行完後才統一回傳 ，回傳 陣列
+})
+//有Promise.race回傳最快的結果
+</script>
