@@ -13,13 +13,18 @@
     .upper{
       height: 10%;
     }
+    select{
+      width:10%;
+    }
   </style>
 </head>
 <body>
   <div class="upper">
+    <span>地區: </span>
     <select name="" id="area">
       <option value="全部">全部</option>
     </select>
+    <span>類型:</span>
     <select name="" id="type">
       <option value="全部">全部</option>
     </select>
@@ -27,9 +32,12 @@
   <div id="map"></div>
 </body>
 </html>
+
 <script>
 var map;
 var infowindow;
+var Markers = [];
+var markers= [];
 function initMap(){
   map =new google.maps.Map(document.getElementById("map"),{
     center: {lat:22.627495675118997,lng:120.29325862799715},
@@ -42,13 +50,12 @@ function initMap(){
 const xhr = new XMLHttpRequest();
 xhr.open('get','./data.json');
 xhr.send();
-xhr.onload = function(){
+xhr.onload = function(){  //main function
   var data = JSON.parse(xhr.responseText);
   console.log(data)
   const area = document.getElementById('area');
   const type = document.getElementById('type');
   inputSet(data,area,type);
-  let markers= [];
   data.forEach(item=>{
     markers.push({
       position: new google.maps.LatLng(Number(item["緯度"]),Number(item['經度'])),
@@ -57,48 +64,11 @@ xhr.onload = function(){
       type:item["型式"]
     })
   })
-  var Markers = []
   markers.forEach(item=>{
     addMarker(Markers,item)
   })
-
-  area.addEventListener("change",function(){
-    let filter1 = area.value;
-    let filter2 = type.value;
-    if (filter1 == '全部'){
-      filter1 = /./;
-    }
-    if(filter2 == '全部'){
-      filter2 = /./;
-    }
-    for (var i = 0; i < Markers.length; i++) {
-      Markers[i].setMap(null);
-    }
-    markers.forEach(item=>{
-      if(item.area.match(filter1) && item.type.match(filter2)){
-        addMarker(Markers,item);
-      }
-    })
-  })
-
-  type.addEventListener("change",function(){
-    let filter1 = area.value;
-    let filter2 = type.value;
-    if (filter1 == '全部'){
-      filter1 = /./;
-    }
-    if(filter2 == '全部'){
-      filter2 = /./;
-    }
-    for (var i = 0; i < Markers.length; i++) {
-      Markers[i].setMap(null);
-    }
-    markers.forEach(item=>{
-      if(item.area.match(filter1) && item.type.match(filter2)){
-        addMarker(Markers,item);
-      }
-    })
-  })
+  addSelectListener(area);
+  addSelectListener(type);
 }
 
 function inputSet(data,area,type){
@@ -108,9 +78,6 @@ function inputSet(data,area,type){
     areaSet.add(element['行政區']);
     typeSet.add(element['型式']);
   });
-  // areaSet.forEach(item=>{
-  //   area.innerHTML += `<option value="${item}">${item}<option>`;
-  // });
   for(let item of areaSet){
     area.innerHTML+=`<option value='${item}'>${item}</option>`;
   }
@@ -136,5 +103,26 @@ function addMarker(Markers,item){
   })
   Markers.push(marker);
 }
+
+function addSelectListener(select){
+  select.addEventListener("change",function(){
+    let filter1 = area.value;
+    let filter2 = type.value;
+    if (filter1 == '全部'){
+      filter1 = /./;
+    }
+    if(filter2 == '全部'){
+      filter2 = /./;
+    }
+    for (var i = 0; i < Markers.length; i++) {
+      Markers[i].setMap(null);
+    }
+    markers.forEach(item=>{
+      if(item.area.match(filter1) && item.type.match(filter2)){
+        addMarker(Markers,item);
+      }
+    })
+  })
+}
 </script>
-<script async defer="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmVjM34E5Jwh4EC9N4LbLvGUvK8LlsPGY&callback=initMap"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmVjM34E5Jwh4EC9N4LbLvGUvK8LlsPGY&callback=initMap"></script>
