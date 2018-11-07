@@ -17,6 +17,7 @@
       width:10%;
     }
   </style>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmVjM34E5Jwh4EC9N4LbLvGUvK8LlsPGY&callback=initMap"></script>
 </head>
 <body>
   <div class="upper">
@@ -32,7 +33,6 @@
   <div id="map"></div>
 </body>
 </html>
-
 <script>
 var map;
 var infowindow;
@@ -56,14 +56,14 @@ xhr.onload = function(){  //main function
   const area = document.getElementById('area');
   const type = document.getElementById('type');
   inputSet(data,area,type);
-  data.forEach(item=>{
+  for(let item in data){
     markers.push({
-      position: new google.maps.LatLng(Number(item["緯度"]),Number(item['經度'])),
-      title:item["停車場名稱"],
-      area:item['行政區'],
-      type:item["型式"]
+      position: new google.maps.LatLng(Number(data[item]["緯度"]),Number(data[item]['經度'])),
+      title:data[item]["停車場名稱"],
+      area:data[item]['行政區'],
+      type:data[item]["型式"]
     })
-  })
+  }
   markers.forEach(item=>{
     addMarker(Markers,item)
   })
@@ -125,4 +125,3 @@ function addSelectListener(select){
   })
 }
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmVjM34E5Jwh4EC9N4LbLvGUvK8LlsPGY&callback=initMap"></script>
