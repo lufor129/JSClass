@@ -52,18 +52,17 @@ xhr.open('get','./data.json');
 xhr.send();
 xhr.onload = function(){  //main function
   var data = JSON.parse(xhr.responseText);
-  console.log(data)
   const area = document.getElementById('area');
   const type = document.getElementById('type');
   inputSet(data,area,type);
-  for(let item in data){
+  data.forEach(item=>{
     markers.push({
-      position: new google.maps.LatLng(Number(data[item]["緯度"]),Number(data[item]['經度'])),
-      title:data[item]["停車場名稱"],
-      area:data[item]['行政區'],
-      type:data[item]["型式"]
+      position: {lat:parseFloat(item["緯度"]),lng:parseFloat(item['經度'])},
+      title:item["停車場名稱"],
+      area:item['行政區'],
+      type:item["型式"]
     })
-  }
+  })
   markers.forEach(item=>{
     addMarker(Markers,item)
   })
