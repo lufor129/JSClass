@@ -44,31 +44,34 @@ function initMap(){
     zoom:12
   })
   infowindow = new google.maps.InfoWindow({});
+  addMapItem();   //需要等到google map 載入後才能執行其他item，不然會出現google is not define
 }
 
-
-const xhr = new XMLHttpRequest();
-xhr.open('get','./data.json');
-xhr.send();
-xhr.onload = function(){  //main function
-  var data = JSON.parse(xhr.responseText);
-  const area = document.getElementById('area');
-  const type = document.getElementById('type');
-  inputSet(data,area,type);
-  data.forEach(item=>{
-    markers.push({
-      position: {lat:parseFloat(item["緯度"]),lng:parseFloat(item['經度'])},
-      title:item["停車場名稱"],
-      area:item['行政區'],
-      type:item["型式"]
+function addMapItem(){
+  const xhr = new XMLHttpRequest();
+  xhr.open('get','./data.json');
+  xhr.send();
+  xhr.onload = function(){  //main function
+    var data = JSON.parse(xhr.responseText);
+    const area = document.getElementById('area');
+    const type = document.getElementById('type');
+    inputSet(data,area,type);
+    data.forEach(item=>{
+      markers.push({
+        position: {lat:parseFloat(item["緯度"]),lng:parseFloat(item['經度'])},
+        title:item["停車場名稱"],
+        area:item['行政區'],
+        type:item["型式"]
+      })
     })
-  })
-  markers.forEach(item=>{
-    addMarker(Markers,item)
-  })
-  addSelectListener(area);
-  addSelectListener(type);
+    markers.forEach(item=>{
+      addMarker(Markers,item)
+    })
+    addSelectListener(area);
+    addSelectListener(type);
+  }
 }
+
 
 function inputSet(data,area,type){
   let areaSet = new Set();
