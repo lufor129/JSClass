@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <select name="" id="area">
+    <option value="全部">請選擇地區</option>
+  </select>
+  <select name="" id="Event">
+    <option value="全部事件">請選擇類型</option>
+  </select>
+  <button id="search">搜尋</button><br>
+  <div id="bar">
+
+  </div>
+  <ul id="list"></ul>
+</body>
+</html>
+<script>
+  const xhr = new XMLHttpRequest();
+  xhr.open('get','https://work1999.kcg.gov.tw/open1999/ServiceRequestsQuery.asmx/ServiceRequestsQuery');
+  xhr.send();
+  xhr.onload = function(){
+    var data = JSON.parse(xhr.responseText);
+    console.log(data);
+    const area = document.getElementById('area');
+    const Event = document.getElementById('Event');
+    const search = document.getElementById("search");
+    const bar = document.getElementById("bar");
+    const list = document.getElementById("list");
+    inputSet(data,area,Event);
+    search.addEventListener("click",function(){
+      let AreaData = area.value;
+      let EventData = Event.value;
+      let number = 0;
+      list.innerHTML = "";
+      console.log(AreaData,EventData);
+      if(AreaData =="全部"){
+        AreaData = /./;
+      }
+      if(EventData == "全部事件"){
+        EventData = /./;
+      }
+      data.forEach(item=>{
+        if(item.ZipName_.match(AreaData) && item.InformDesc_.match(EventData)){
+          list.innerHTML += 
+          `<li>
+            <h4> 
+            地點 : ${item.address_}
+            </h4>
+            <h5>
+            報案狀況 : ${item.BeforeDesc_}
+            </h5>
+          </li>`;
+          number +=1;
+        }
+      })
+      if(AreaData =="/./"){
+        AreaData = "全部";
+      }
+      if(EventData == "/./"){
+        EventData = "全部事件";
+      }
+      bar.innerHTML = `<h3><span>${AreaData}</span> <span>${EventData}<span> 有 <em>${number}</em> 處</h3>`;
+    })
+  }
+
+  function inputSet(data,area,Event){
+    let areaSet = new Set();
+    let EventSet = new Set();
+    data.forEach(element => {
+      areaSet.add(element.ZipName_);
+      EventSet.add(element.InformDesc_);
+    });
+    for(let item of areaSet){
+      area.innerHTML+=`<option value='${item}'>${item}</option>`;
+    }
+    for(let item of EventSet){
+      Event.innerHTML += `<option value='${item}'>${item}</option>`;
+    }
+  }
+</script>
