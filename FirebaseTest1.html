@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAI3rUiBMZCxIu7CkCLgoobbKY6a9M7_tY",
+    authDomain: "expresstest-7f91a.firebaseapp.com",
+    databaseURL: "https://expresstest-7f91a.firebaseio.com",
+    projectId: "expresstest-7f91a",
+    storageBucket: "expresstest-7f91a.appspot.com",
+    messagingSenderId: "23228135913"
+  };
+  firebase.initializeApp(config);
+
+  const studentsRef = firebase.database().ref('/students/').push();
+  studentsRef.set({name:"Huang"});
+
+  firebase.database().ref('/').once('value',(snapshot)=>{
+    console.log(snapshot.val())
+  })
+</script>

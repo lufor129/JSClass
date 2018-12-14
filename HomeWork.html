@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+</head>
+<body>
+  <h1>使用者註冊</h1>
+  <h2>姓名</h2>
+  <input type="text" id="name">
+  <h2>帳號</h2>
+  <input type="text" id="account">
+  <h2>密碼</h2>
+  <input type="password" id="password">
+  <h2>上傳照片</h2>
+  <div><input id="uploadFileInput" type="file"></div><br>
+  <button id="button">確認資料並上傳</button>
+  <img src="" id="picture" alt="">
+  <hr>
+  <h1>文章</h1>
+  <h2>作者</h2>
+  <select name="" id="author"></select>
+  <h2>文章標題</h2>
+  <input type="text" id="title">
+  <h2>文章內容</h2>
+  <textarea name="" id="content" cols="50" rows="10"></textarea><br><br>
+  <button id="uploadArticle">上傳文章</button>
+</body>
+</html>
+<script>
+  var config = {
+    apiKey: "AIzaSyBbkkGyJpZRHuRA8ZXr9dzrUJC4ygHqTQs",
+    authDomain: "nodejstest-d93c3.firebaseapp.com",
+    databaseURL: "https://nodejstest-d93c3.firebaseio.com",
+    projectId: "nodejstest-d93c3",
+    storageBucket: "nodejstest-d93c3.appspot.com",
+    messagingSenderId: "744940828040"
+  };
+  firebase.initializeApp(config);
+  var storageRef = firebase.storage().ref();
+  var database = firebase.database();
+  var userPush = database.ref('users').push();
+  var articlePush = database.ref('article').push();
+
+  var uploadFileInput = document.getElementById("uploadFileInput");
+  var button = document.getElementById("button");
+  var picture = document.getElementById("picture");
+
+  button.addEventListener("click",function(){
+    var file = uploadFileInput.files[0];
+    var time = new Date().getTime();
+    storageRef.child('images/'+file.name).put(file).then(function(snapshot){
+      storageRef.child('images/'+file.name).getDownloadURL().then(function(url){
+        picture.src = url;
+        var uploadData = {
+          name:document.getElementById("name").value,
+          password:document.getElementById('password').value,
+          account:document.getElementById('account').value,
+          image:url,
+          time:time
+        }
+        userPush.set(uploadData).then(function(){
+          console.log("uploadSuccess");
+        })
+      })
+    })
+  })
+  
+  // uploadFileInput.addEventListener("change",function(){
+  //   var file = this.files[0];
+  //   console.log(file);
+  //   console.log(file.type.split('/')[1]);
+  //   var time = new Date().getTime();
+  //   var uploadTask = storageRef.child('images/'+file.name).put(file).then(function(snapshot){
+  //     console.log(snapshot);
+  //     storageRef.child('images/'+file.name).getDownloadURL().then(function(url){
+  //       var img = document.getElementById('picture');
+  //       img.src = url;
+  //     })
+  //   });
+    
+  // })
+
+  var uploadArticle = document.getElementById("uploadArticle");
+  var author = document.getElementById('author');
+  var title = document.getElementById('title');
+  var content = document.getElementById('content');
+  database.ref('users').on('value',function(snapshot){
+    var users = snapshot.val();
+    for(user in users){
+      author.innerHTML+=`<option value="${users[user].name}">${users[user].name}</option>`
+    }
+  })
+
+  uploadArticle.addEventListener("click",function(){
+    var data = {
+      author:author.value,
+      title:title.value,
+      content:content.value
+    }
+    articlePush.set(data).then(function(){
+      console.log("success");
+    });
+  })
+
+</script>
